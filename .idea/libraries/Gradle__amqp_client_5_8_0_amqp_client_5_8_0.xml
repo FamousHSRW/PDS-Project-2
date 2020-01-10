@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: amqp-client-5.8.0.amqp-client-5.8.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/amqp-client-5.8.0/amqp-client-5.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PDS-Project-2.iml" filepath="$PROJECT_DIR$/PDS-Project-2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/amqp-client-5.8.0/amqp-client-5.8.0.iml" filepath="$PROJECT_DIR$/amqp-client-5.8.0/amqp-client-5.8.0.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slf4j-api-1.7.26/slf4j-api-1.7.26.iml" filepath="$PROJECT_DIR$/slf4j-api-1.7.26/slf4j-api-1.7.26.iml" />
+      <module fileurl="file://$PROJECT_DIR$/slf4j-simple-1.7.26/slf4j-simple-1.7.26.iml" filepath="$PROJECT_DIR$/slf4j-simple-1.7.26/slf4j-simple-1.7.26.iml" />
     </modules>
   </component>
 </project>
