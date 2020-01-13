@@ -5,19 +5,91 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.PlaceholderFragment">
+    tools:context=".ui.main.PlaceholderPublishers">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/cnn_message"
+        android:layout_width="410dp"
+        android:layout_height="68dp"
+        android:background="#ffffff"
+        android:hint="Enter a message"
+        app:layout_constraintBottom_toBottomOf="@+id/cnnCardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/publish_cnn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="206dp"
+        android:layout_height="71dp"
+        android:layout_below="@+id/cnn_message"
+        android:text="Publish To CNN"
+        app:layout_constraintBottom_toTopOf="@+id/bbc_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnn_message" />
+
+    <Button
+        android:id="@+id/subscribe_cnn"
+        android:layout_width="203dp"
+        android:layout_height="68dp"
+        android:layout_below="@+id/cnn_message"
+        android:layout_marginStart="204dp"
+        android:layout_marginLeft="204dp"
+        android:text="Subscribe To CNN"
+        app:layout_constraintBottom_toTopOf="@+id/bbc_message"
+        app:layout_constraintStart_toStartOf="@+id/publish_cnn"
+        app:layout_constraintTop_toBottomOf="@+id/cnn_message"
+        app:layout_constraintVertical_bias="0.538" />
+
+    <EditText
+        android:id="@+id/bbc_message"
+        android:layout_width="410dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="472dp"
+        android:background="#ffffff"
+        android:hint="Enter a message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/publish_bbc"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="206dp"
+        android:layout_height="71dp"
+        android:layout_below="@+id/cnn_message"
+        android:text="Publish To BBC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bbc_message"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <Button
+        android:id="@+id/subscribe_bbc"
+        android:layout_width="203dp"
+        android:layout_height="68dp"
+        android:layout_below="@+id/cnn_message"
+        android:layout_marginStart="208dp"
+        android:layout_marginLeft="208dp"
+        android:text="Subscribe To BBC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bbc_message"
+        app:layout_constraintVertical_bias="0.051" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cnnCardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        app:layout_constraintBottom_toTopOf="@+id/bbc_message"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bbcCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bbc_message"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

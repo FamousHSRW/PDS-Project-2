@@ -9,61 +9,71 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.example.pds_project_2.ui.main.SectionsPagerAdapter;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-    private BlockingDeque<String> queue = new LinkedBlockingDeque<>();
-    ConnectionFactory factory = new ConnectionFactory();
-    Thread subscribeThread;
-    Thread publishThread;
+    private ViewPager viewPager;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private ConnectionFactory factory;
+    private String ROUTING_KEY = "cnn";
+    private String EXCHANGE_NAME = "pds_project";
+    private Consumer consumer;
+    private Producer producer;
 
-    void publishMessage(String message) {
+    private void setupConnectionFactory () {
         try {
-            Log.d("", "[q] " + message);
-            queue.putLast(message);
-        } catch (InterruptedException e) {
+            factory = new ConnectionFactory();
+//            factory.setUri("amqp://famous:famous@192.168.0.206:15672/");
+            factory.setAutomaticRecoveryEnabled(false);
+            factory.setUsername("famous");
+            factory.setPassword("famous");
+            factory.setHost("192.168.0.206");
+            factory.setPort(5672);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setupConnectionFactory() {
-        String uri = "amqp://guest:guest@192.168.0.109:15672";
-        factory.setAutomaticRecoveryEnabled(false);
-        factory.setUsername("famous");
-        factory.setPassword("famous");
-        factory.setHost("10.222.2.16");
-        factory.setPort(5672);
+    private void setUpConsumerAndProducer () {
+        consumer = new Consumer(this, factory, ROUTING_KEY, EXCHANGE_NAME);
+        producer = new Producer(factory, ROUTING_KEY, EXCHANGE_NAME);
+        executorService.execute(consumer);
+        executorService.execute(producer);
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupConnectionFactory();
+        setUpConsumerAndProducer();
+
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(), producer, consumer);
+        viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        executorService.shutdownNow();
+        executorService.shutdown();
     }
 }

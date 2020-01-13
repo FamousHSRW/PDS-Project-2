@@ -1,2 +1,2 @@
-include ':app', ':amqp-client-5.8.0', ':slf4j-api-1.7.26', ':slf4j-simple-1.7.26'
+include ':app'
 rootProject.name='PDS-Project-2'

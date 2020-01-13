@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('amqp-client-5.8.0.jar'))
