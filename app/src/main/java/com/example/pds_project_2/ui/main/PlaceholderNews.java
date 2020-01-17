@@ -55,7 +55,7 @@ public class PlaceholderNews extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_messages, container, false);
         TextView textView = root.findViewById(R.id.news_header);
-        textView.append("Receiving messages from: " +  producer.getRoutingKey().toUpperCase() + "\n");
+        textView.append("Messages From Subscribed Publishers Will Appear Here" + "\n");
 
         return root;
     }

@@ -8,88 +8,74 @@
     tools:context=".ui.main.PlaceholderPublishers">
 
     <EditText
-        android:id="@+id/cnn_message"
-        android:layout_width="410dp"
-        android:layout_height="68dp"
-        android:background="#ffffff"
-        android:hint="Enter a message"
-        app:layout_constraintBottom_toBottomOf="@+id/cnnCardView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/publish_cnn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="206dp"
-        android:layout_height="71dp"
-        android:layout_below="@+id/cnn_message"
-        android:text="Publish To CNN"
-        app:layout_constraintBottom_toTopOf="@+id/bbc_message"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cnn_message" />
-
-    <Button
-        android:id="@+id/subscribe_cnn"
-        android:layout_width="203dp"
-        android:layout_height="68dp"
-        android:layout_below="@+id/cnn_message"
-        android:layout_marginStart="204dp"
-        android:layout_marginLeft="204dp"
-        android:text="Subscribe To CNN"
-        app:layout_constraintBottom_toTopOf="@+id/bbc_message"
-        app:layout_constraintStart_toStartOf="@+id/publish_cnn"
-        app:layout_constraintTop_toBottomOf="@+id/cnn_message"
-        app:layout_constraintVertical_bias="0.538" />
-
-    <EditText
         android:id="@+id/bbc_message"
-        android:layout_width="410dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="472dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="23dp"
         android:background="#ffffff"
         android:hint="Enter a message"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/publish_bbc"
+        app:layout_constraintEnd_toEndOf="@+id/publish_cnn"
+        app:layout_constraintStart_toEndOf="@+id/publish_cnn"
+        app:layout_constraintTop_toBottomOf="@+id/subscribe_cnn" />
 
     <Button
         android:id="@+id/publish_bbc"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="206dp"
-        android:layout_height="71dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@+id/cnn_message"
+        android:layout_marginBottom="270dp"
         android:text="Publish To BBC"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/subscribe_bbc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bbc_message"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintTop_toBottomOf="@+id/bbc_message" />
 
     <Button
         android:id="@+id/subscribe_bbc"
-        android:layout_width="203dp"
-        android:layout_height="68dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/cnn_message"
-        android:layout_marginStart="208dp"
-        android:layout_marginLeft="208dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
         android:text="Subscribe To BBC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bbc_message"
-        app:layout_constraintVertical_bias="0.051" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/publish_bbc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/publish_bbc" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cnnCardView"
+    <EditText
+        android:id="@+id/cnn_message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="7dp"
+        android:background="#ffffff"
+        android:hint="Enter a message"
+        app:layout_constraintBottom_toTopOf="@+id/subscribe_cnn"
+        app:layout_constraintEnd_toEndOf="@+id/publish_cnn"
+        app:layout_constraintStart_toEndOf="@+id/publish_cnn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/subscribe_cnn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:text="Subscribe To CNN"
         app:layout_constraintBottom_toTopOf="@+id/bbc_message"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/publish_cnn"
+        app:layout_constraintTop_toBottomOf="@+id/cnn_message" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bbcCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/bbc_message"
-        app:layout_constraintVertical_bias="0.0" />
+    <Button
+        android:id="@+id/publish_cnn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="Publish To CNN"
+        app:layout_constraintBaseline_toBaselineOf="@+id/subscribe_cnn"
+        app:layout_constraintEnd_toStartOf="@+id/subscribe_cnn"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

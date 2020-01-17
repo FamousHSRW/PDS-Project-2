@@ -15,8 +15,6 @@ import com.example.pds_project_2.Consumer;
 import com.example.pds_project_2.Producer;
 import com.example.pds_project_2.R;
 
-import java.io.IOException;
-
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -63,8 +61,7 @@ public class PlaceholderPublishers extends Fragment {
             @Override
             public void onClick(View v) {
                 EditText et = root.findViewById(R.id.bbc_message);
-                producer.setRoutingKey("bbc");
-                producer.publishMessage(et.getText().toString());
+                producer.publishMessage(et.getText().toString(), "bbc");
                 et.setText("");
             }
         });
@@ -72,14 +69,14 @@ public class PlaceholderPublishers extends Fragment {
         cnn_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    consumer.setRoutingKey("cnn");
+                    consumer.consumeMessages("cnn");
             }
         });
 
         bbc_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    consumer.setRoutingKey("bbc");
+                    consumer.consumeMessages("bbc");
             }
         });
 
@@ -88,8 +85,7 @@ public class PlaceholderPublishers extends Fragment {
             @Override
             public void onClick(View v) {
                 EditText et = root.findViewById(R.id.cnn_message);
-                producer.setRoutingKey("cnn");
-                producer.publishMessage(et.getText().toString());
+                producer.publishMessage(et.getText().toString(), "cnn");
                 et.setText("");
             }
         });

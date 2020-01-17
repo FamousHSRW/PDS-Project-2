@@ -1,11 +1,8 @@
 package com.example.pds_project_2;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.widget.TextView;
 
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -40,35 +37,36 @@ public class Consumer implements Runnable {
             channel.queueDeclare("bbc", true, false, true, null);
             channel.exchangeDeclare(exchangeName, "direct");
 
-            setRoutingKey(routingKey.get(0));
+            consumeMessages(routingKey.get(0));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setRoutingKey(String routingKey)  {
-        System.out.println(routingKey);
+    public void consumeMessages(String routingKey)  {
         new Thread((Runnable) () -> {
             try {
-                channel.queueUnbind(this.routingKey.get(0), exchangeName, this.routingKey.get(0));
                 channel.queueBind(routingKey, exchangeName, routingKey);
+
                 DeliverCallback deliverCallback = ((consumerTag, delivery) -> {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            System.out.println("ran");
                             try {
                                 String message = new String(delivery.getBody(), "UTF-8");
                                 TextView tv = activity.findViewById(R.id.messages_received);
                                 Date now = new Date();
                                 SimpleDateFormat ft = new SimpleDateFormat("hh:mm:ss");
-                                tv.append(ft.format(now) + ' ' + message + '\n');
+                                tv.append(ft.format(now) + ' ' + delivery.getEnvelope().getRoutingKey().toUpperCase() + ": " + message + '\n');
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
                         }
                     });
                 });
+
                 channel.basicConsume(routingKey, true, deliverCallback, consumerTag -> {});
             } catch (IOException e) {
                 e.printStackTrace();

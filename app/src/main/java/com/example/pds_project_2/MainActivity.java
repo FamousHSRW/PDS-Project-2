@@ -27,11 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private void setupConnectionFactory () {
         try {
             factory = new ConnectionFactory();
-//            factory.setUri("amqp://famous:famous@192.168.0.206:15672/");
             factory.setAutomaticRecoveryEnabled(false);
             factory.setUsername("famous");
             factory.setPassword("famous");
-            factory.setHost("192.168.0.206");
+            factory.setHost("10.222.0.133");
             factory.setPort(5672);
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpConsumerAndProducer () {
         consumer = new Consumer(this, factory, ROUTING_KEY, EXCHANGE_NAME);
-        producer = new Producer(factory, ROUTING_KEY, EXCHANGE_NAME);
+        producer = new Producer(factory, EXCHANGE_NAME);
         executorService.execute(consumer);
         executorService.execute(producer);
     }
@@ -58,16 +57,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
