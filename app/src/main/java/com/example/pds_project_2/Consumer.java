@@ -20,6 +20,7 @@ public class Consumer implements Runnable {
     private Channel channel;
     private String exchangeName;
     private  Activity activity;
+    private String queueName;
 
     public Consumer(Activity activity, ConnectionFactory factory, String routingKey, String exchangeName) {
         this.factory = factory;
@@ -33,8 +34,7 @@ public class Consumer implements Runnable {
         try {
             Connection connection = factory.newConnection();
             channel = connection.createChannel();
-            channel.queueDeclare("cnn", true, false, true, null);
-            channel.queueDeclare("bbc", true, false, true, null);
+            queueName = channel.queueDeclare().getQueue();
             channel.exchangeDeclare(exchangeName, "direct");
 
             consumeMessages(routingKey.get(0));
@@ -47,7 +47,7 @@ public class Consumer implements Runnable {
     public void consumeMessages(String routingKey)  {
         new Thread((Runnable) () -> {
             try {
-                channel.queueBind(routingKey, exchangeName, routingKey);
+                channel.queueBind(queueName, exchangeName, routingKey);
 
                 DeliverCallback deliverCallback = ((consumerTag, delivery) -> {
                     activity.runOnUiThread(new Runnable() {
@@ -67,7 +67,7 @@ public class Consumer implements Runnable {
                     });
                 });
 
-                channel.basicConsume(routingKey, true, deliverCallback, consumerTag -> {});
+                channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});
             } catch (IOException e) {
                 e.printStackTrace();
             }
